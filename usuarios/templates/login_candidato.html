@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load static %}
+{% block 'title' %}Login do Candidato{% endblock 'title' %}
+{% block 'head' %}
+
+    <link rel="stylesheet" href="{% static 'usuarios/css/cadastro_candidato.css' %}">
+
+{% endblock%}
+{% block 'body' %}
+<div class="wrapper">
+    <div class="box">
+        <div class="header">
+            <h3 class="titulo">Login de Candidato no EMPREGAPG</h3>
+        </div>
+
+        {% if messages %}
+            {% for message in messages %}
+            <br>
+                <section class="alert {{message.tags}}">
+                    {{message}}
+                </section>
+            {% endfor %}
+        {% endif %}
+
+        <div class="body-box">
+            <form action="{% url 'login_candidato' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="col-md">
+                    <label>E-mail:</label>
+                    <input type="text" name="email" class="form-control" placeholder="Email">
+                </div>
+
+                <div class="col-md">
+                    <label>Senha:</label>
+                    <input type="password" name="senha" class="form-control" placeholder="Senha">
+                </div>
+           
+                <br>
+                <div class="row">
+                    <div class="col-md">
+                        <input type="submit" value="Entrar" class="btn btn-lg">
+                    </div>
+                    <div class="col-md d-flex justify-content-end">
+                        <a href="{% url 'registro_candidato' %}">
+                            <input type="button" class="btn btn-lg" value="Cadastre-se" />
+                        </a>
+                    </div>
+                </div>
+            </form>
+            
+        </div>
+    </div>
+</div>
+
+{% endblock 'body' %}
+
+

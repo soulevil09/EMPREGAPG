@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block 'body' %}
+<div style="text-align: center; margin-top: 50px;">
+    <h2>Enviando Candidatura...</h2>
+    <img src="{% static 'gifs/loading.gif'%}" alt="Carregamento">
+</div>
+
+<script>
+    setTimeout(() =>{
+        window.location.href = "{{redirect_url}}";
+    }, 5000);
+</script>
+
+
+{% endblock 'body' %}
+
+
+
+

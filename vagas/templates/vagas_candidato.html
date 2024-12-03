@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load filtro %}
+
+{% block 'head' %}
+    <link rel="stylesheet" href="{% static 'empresa/css/empresas.css' %}">
+{% endblock %}
+
+{% block 'body' %}
+    <a href="{% url 'editar_candidato'  %}" class="btn-nova-empresa">Editar Perfil</a>
+    <div class="wrapper">
+        <div class="box"> 
+            <div class="header-box">
+                {% if messages %}
+                    {% for message in messages %}
+                        <section class="alert {{message.tags}}">
+                            {{message}}
+                        </section>
+                    {% endfor %}
+                {% endif %}
+                <h2 class="titulo">Vagas</h2>
+                <a href="{% url 'logout_candidato' %}" class="btn-nova-empresa">Logout</a>
+            </div>
+            <div class="borda-box"></div>
+            <div class="body-box">
+            
+                <form action="{% url 'empresas' %}" method="GET"> 
+                <div class="row">
+                    
+                        <div class="col-md">
+                            <input type="text" placeholder="Busque pelo nome" class="form-control" name="nome">
+                        </div>
+
+                        {% comment %} <div class="col-md-4">
+                            <select class="form-select" name="tecnologias">
+                                {% for tech in tecnologias %}
+                                    <option value="{{tech.id}}">{{tech}}</option>
+                                {% endfor %}
+                            </select>
+                        </div> {% endcomment %}
+                    
+                    <div class="col-md">
+                        <input type="submit" value="FILTRAR" class="btn btn-lg btn-orange">
+                    </div>
+                </div>
+                </form>
+
+                <table class="tabela" cellpadding="20">
+                    <tr>
+                        <th>Nome Vaga</th>
+                        <th>Empresa</th>
+                        <th>Ação</th>
+                    </tr>
+
+                        {% for vaga in vagas %}
+                            <tr {% if not forloop.counter|is_par %} class="tabela-linha" {% endif %}  >
+                                <td><a href="{% url "vaga_unica" vaga.id%}">{{vaga.titulo}}</a></td>
+                                <td>
+                                    {% for empresa in empresas %}
+                                        {% if vaga.empresa_id == empresa.pk %}
+                                            <a href="{% url "empresa_unica" empresa.pk%}">{{empresa.nome}}</a>
+                                            {% endif %}
+                                    {% endfor %}
+                                </td>
+                                <td>
+                                    <form method="POST" action="{% url 'candidatar_vaga' vaga.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-primary">Candidate-se</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    
+                </table>
+            </div>
+
+
+            
+
+        </div>
+    </div>
+
+{% endblock%}

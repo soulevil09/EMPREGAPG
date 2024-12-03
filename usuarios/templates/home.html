@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+{% block 'title' %}Home{% endblock 'title' %}
+{% block 'head' %}
+    <link rel="stylesheet" href="{% static 'usuarios/css/usuarios.css' %}">
+{% endblock %}
+{% block 'body' %}
+
+  <svg class="w-100 h-100" viewBox="0 0 1000 400" xmlns="http://www.w3.org/2000/svg">
+      <path d="M 0,300 C 300,500 700,100 1000,300 L 1000,0 L 0,0 Z" fill="#3B0032"></path>
+  </svg>
+  <div class="wave-container w-100">
+      <div class="container d-flex w-100 h-100 align-items-center">
+          <!-- Imagem à esquerda -->
+          <div class="image-container">
+              <img src="{% static 'usuarios/img/backimg.png' %}" alt="Imagem" class="img-fluid wave-img">
+          </div>
+
+        <!-- Texto à direita -->
+        <div class="text-container">
+            <h1 class="text-white">Seu próximo emprego na Praia Grande está aqui!</h1>
+            <a href="{% url "login_candidato" %}" class="btn btn-light">Sou Candidato</a>
+            <a href="{% url "login_empregador" %}" class="btn btn-light">Sou Empregador</a>
+        </div>
+    </div>  
+  </div>
+
+  
+
+{% endblock 'body' %}

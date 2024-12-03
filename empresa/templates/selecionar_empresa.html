@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load static %}
+{% block 'head' %}
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/@trevoreyre/autocomplete-js/dist/style.css"
+/>
+
+<link rel="stylesheet" href="{% static 'empresa/css/nova_empresa.css' %}">
+{% endblock %}  
+
+{% block 'body' %}
+<div class="wrapper">
+    <div class="box">
+        <div class="header">
+            <h3 class="titulo">Vincular a empresa existente</h3>
+        </div>
+
+        {% if messages %}
+            {% for message in messages %}
+            <br>
+                <section class="alert {{message.tags}}">
+                    {{message}}
+                </section>
+            {% endfor %}
+        {% endif %}
+
+        <div class="body-box">
+            <form action="{% url 'vincular_empresa' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row">
+                    <div id="autocomplete" class="autocomplete">
+                        <input class="autocomplete-input" />
+                        <ul class="autocomplete-result-list"></ul>
+                    </div>
+                </div>
+                <br>
+                <input type="hidden" id="empresa_id" name="empresa_id" />
+                <div class="row">
+                    <div class="col-md">
+                        <input type="submit" value="Entrar" class="btn btn-lg">
+                    </div>
+                    <div class="col-md d-flex justify-content-end">
+                        <a href="{% url 'nova_empresa' %}">
+                            <input type="button" class="btn btn-lg" value="Nova Empresa" />
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+    <script src="https://unpkg.com/@trevoreyre/autocomplete-js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            new Autocomplete('#autocomplete', {
+                search: input => {
+                    const url = `/empresas/search/?empresa=${input}`;
+                    return new Promise(resolve => {
+                        fetch(url)
+                            .then(response => response.json())
+                            .then(data => resolve(data.results)) // Obtém apenas os resultados
+                            .catch(error => console.error("Erro ao processar JSON:", error));
+                    });
+                },
+                getResultValue: result => result.nome,  // Mostra apenas o nome no campo de entrada
+                onSubmit: result => {
+                    document.getElementById('empresa_id').value = result.id;  // Define o ID no campo oculto
+                }
+            });
+        });
+    </script>
+    
+{% endblock %}    
+

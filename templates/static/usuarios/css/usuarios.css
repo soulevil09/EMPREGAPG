@@ -1,0 +1,81 @@
+.wave-container {
+    position: relative;
+    overflow: hidden;
+    height: 400px; /* Ajuste a altura para acomodar o conteúdo */
+}
+
+svg {
+    position: absolute; /* Mantém o SVG no fundo */
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+
+.wave-img {
+    position: absolute;
+    bottom: 0;
+    left: 3%;
+    z-index: 2;
+    max-height: 80%; /* Ajuste a altura máxima da imagem */
+}
+
+.container {
+    position: relative; /* Para sobrepor o texto dentro do SVG */
+    justify-content: space-between; /* Espaçamento entre imagem e texto */
+    padding: 0 2rem; /* Para dar espaço ao redor do conteúdo */
+}
+
+.text-container {
+    position: absolute;
+    right: 3%;
+    left: 60%;
+    z-index: 2;
+    text-align: center; /* Centraliza o texto e o botão */
+}
+.text-container a{
+    margin-top: 2em;
+}
+
+@media (max-width: 600px) {
+    /* Esconde o SVG em dispositivos móveis */
+    svg {
+        display: none;
+    }
+
+    /* Aplica o fundo de cor sólida */
+    .wave-container {
+        background-color: #3B0032; /* Cor de fundo em substituição ao SVG */
+        height: auto; /* Ajuste da altura automática */
+    }
+
+    .wave-img {
+        position: relative;
+        max-width: 100%; /* Faz a imagem ocupar a largura disponível */
+        height: auto; /* Mantém a proporção */
+        left: 0; /* Centraliza a imagem horizontalmente */
+    }
+
+    .text-container {
+        position: relative;
+        left: 0;
+        right: 0;
+        margin-top: 1rem;
+        text-align: center; /* Centraliza o texto */
+    }
+
+    .text-container h1 {
+        font-size: 1.5rem; /* Reduz o tamanho da fonte para telas pequenas */
+    }
+
+    .text-container a {
+        display: inline-block; /* Garante que os botões apareçam um ao lado do outro */
+        margin: 0.5rem 1rem; /* Espaçamento entre os botões */
+    }
+
+    .container {
+        flex-direction: column; /* Organiza a imagem e texto em coluna */
+        align-items: center; /* Centraliza os itens em dispositivos móveis */
+        padding: 0 1rem; /* Espaçamento lateral */
+    }
+}
+

@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block 'head' %}
+    <link href="{% static 'empresa/css/empresa.css' %}" rel="stylesheet">
+{% endblock%}
+
+{% block 'body' %}    
+    <br>
+    <div class="container">
+        {% if messages %}
+            {% for message in messages %}
+                <br>
+                <section class="alert {{message.tags}}">
+                    {{message}}
+                </section>
+            {% endfor %}
+        {% endif %}    
+
+        <div class="row">
+            <div class="col-md-3">
+                <img 
+                    width="100%" 
+                    src="{{perfil.imagem.url}}" 
+                    alt="Foto do Perfil">
+            </div>
+
+            <div class="col-md">
+                <h1 class="titulo">{{perfil.nome}}</h1>
+                <p class="paragrafo">{{perfil.area_atuacao}}</p>
+            </div>
+        </div>
+        
+        <br><br>
+
+        <div class="row">
+            <div class="col-md-7">
+                <label>Descrição:</label>
+                <textarea disabled class="form-control">{{perfil.descricao}}</textarea>
+            </div>
+        </div>
+        
+        <hr>
+
+        <div class="row">
+            <div class="col-md-7">
+                <h2>Currículo</h2>
+                <!-- Botão para abrir o modal -->
+                <button 
+                    class="btn btn-secondary" 
+                    data-bs-toggle="modal" 
+                    data-bs-target="#curriculoModal">
+                    Ver Currículo Ampliado
+                </button>
+
+                <a href="{{ perfil.curriculo.url }}" class="btn btn-primary" download>Baixar Currículo</a>
+                <a href="{% url 'editar_candidato' %}" class="btn btn-warning">Editar Informações</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para exibição do currículo -->
+    <div 
+        class="modal fade" 
+        id="curriculoModal" 
+        tabindex="-1" 
+        aria-labelledby="curriculoModalLabel" 
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="curriculoModalLabel">Currículo</h5>
+                    <button 
+                        type="button" 
+                        class="btn-close" 
+                        data-bs-dismiss="modal" 
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <iframe 
+                        src="{{ perfil.curriculo.url }}" 
+                        style="width: 100%; height: 500px;" 
+                        frameborder="0">
+                    </iframe>
+
+                </div>
+            </div>
+        </div>
+    </div>      
+{% endblock %}

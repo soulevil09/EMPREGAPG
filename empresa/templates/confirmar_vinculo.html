@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h3>Empresa já existente</h3>
+  <p>A empresa "{{ empresa.nome }}" já está cadastrada. Você deseja vincular-se a ela?</p>
+
+  <form action="{% url 'vincular_empregador' %}" method="POST">
+    {% csrf_token %}
+    <input type="hidden" name="empresa_id" value="{{ empresa.id }}">
+    <button type="submit" class="btn btn-primary">Confirmar Vínculo</button>
+  </form>
+{% endblock %}

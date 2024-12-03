@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block 'head' %}
+    <link rel="stylesheet" href="{% static 'usuarios/css/cadastro_candidato.css' %}">
+{% endblock%}
+
+
+{% block 'body' %}
+<div class="wrapper">
+    <div class="box">
+        <div class="header">
+            <h3 class="titulo">Nova Vaga</h3>
+        </div>
+
+        {% if messages %}
+            {% for message in messages %}
+            <br>
+                <section class="alert {{message.tags}}">
+                    {{message}}
+                </section>
+            {% endfor %}
+        {% endif %}
+
+        <div class="body-box">
+            <form action="{% url 'nova_vaga' %}" method="POST">{% csrf_token %}
+                <div class="row">
+                    <div class="col-md">
+                        <label>Título:</label>
+                        {{formVagas.titulo}}
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md">
+                        <label>Descrição da Vaga:</label>
+                        {{formVagas.descricao}}
+                    </div>
+
+                    
+                </div>
+                <br>
+                <input type="submit" value="Nova Vaga" class="btn btn-lg">
+
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock 'body' %}

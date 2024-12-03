@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block 'head' %}
+    <link href="{% static 'empresa/css/empresa.css' %}" rel="stylesheet">
+{% endblock%}
+
+{% block 'body' %}    
+    <br>
+    <div class="container">
+        {% if messages %}
+            {% for message in messages %}
+                <br>
+                <section class="alert {{message.tags}}">
+                    {{message}}
+                </section>
+            {% endfor %}
+        {% endif %}    
+
+        <div class="row">
+            <div class="col-md-3">
+                <img 
+                    width="100%" 
+                    src="{{perfil.imagem.url}}" 
+                    alt="Foto do Perfil">
+            </div>
+
+            <div class="col-md">
+                <h1 class="titulo">{{perfil.nome}}</h1>
+                <p class="paragrafo"> Empregador na Empresa {{perfil.empresa}}</p>
+            </div>
+        </div>
+        
+        <br>
+        
+        <hr>
+
+        <div class="row">
+            <div class="col-md-7">
+                <h2>Empresa</h2>
+                <!-- Botão para abrir o modal -->
+                <button 
+                    class="btn btn-secondary" 
+                    data-bs-toggle="modal" 
+                    data-bs-target="#empresaModal">
+                    Ver Informações da Empresa
+                </button>
+                <a href="{% url 'editar_empregador' %}" class="btn btn-warning">Editar Informações</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para exibição do currículo -->
+    <div 
+    class="modal fade" 
+    id="empresaModal" 
+    tabindex="-1" 
+    aria-labelledby="empresaModalLabel" 
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="empresaModalLabel">Empresa</h5>
+                <button 
+                    type="button" 
+                    class="btn-close" 
+                    data-bs-dismiss="modal" 
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <iframe 
+                    src="{% url 'empresa_unica' perfil.empresa_id %}" 
+                    style="width: 100%; height: 500px;" 
+                    frameborder="0">
+                </iframe>
+            </div>
+        </div>
+    </div>
+</div>
+  
+{% endblock %}
+
+
+
+
