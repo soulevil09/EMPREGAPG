@@ -1,0 +1,8 @@
+# Normaliza terminação de linha para todos os arquivos de texto
+* text=auto
+
+# Arquivos binários (não mexer nas quebras de linha)
+*.png binary
+*.jpg binary
+*.pdf binary
+*.exe binary
